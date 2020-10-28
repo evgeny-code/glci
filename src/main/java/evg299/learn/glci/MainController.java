@@ -12,4 +12,5 @@ public class MainController {
     public ResponseEntity<String> hey(@Value("${app.msg}") final String msg) {
         return ResponseEntity.ok(msg);
     }
+
 }
