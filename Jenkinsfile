@@ -1,10 +1,16 @@
 node {
     def app
+    def rtMaven = Artifactory.newMavenBuild()
 
     stage('Clone repository') {
         /* Let's make sure we have the repository cloned to our workspace */
 
         checkout scm
+    }
+
+    stage('Build maven') {
+        /* sh 'mvn clean package' */
+        rtMaven.run pom: 'pom.xml', goals: 'clean install', buildInfo: Artifactory.newBuildInfo()
     }
 
     stage('Build image') {
