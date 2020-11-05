@@ -37,4 +37,8 @@ node {
             app.push("latest")
         }
     }
+
+    stage('Update k8s') {
+            sh 'microk8s.kubectl set image deployment/glci-app-deployment glci-app-container=evg299/glci:latest'
+    }
 }
