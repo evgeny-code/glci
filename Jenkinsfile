@@ -39,6 +39,6 @@ node {
     }
 
     stage('Update k8s') {
-            sh 'microk8s.kubectl set image deployment/glci-app-deployment glci-app-container=evg299/glci:${env.BUILD_NUMBER}'
+            sh "microk8s.kubectl set image deployment/glci-app-deployment glci-app-container=evg299/glci:${env.BUILD_NUMBER}"
     }
 }
