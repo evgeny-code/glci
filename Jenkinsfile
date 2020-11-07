@@ -15,7 +15,9 @@ node {
         /* This builds the actual image; synonymous to
          * docker build on the command line */
 
-        app = docker.build("evg299/glci")
+        /* app = docker.build("evg299/glci") */
+
+        sh 'docker build --tag evg299/glci:latest .'
     }
 
     stage('Test image') {

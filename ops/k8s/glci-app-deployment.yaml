@@ -20,5 +20,3 @@ spec:
         imagePullPolicy: Never
         ports:
         - containerPort: 8080
-      imagePullSecrets:
-       - name: regcred-dh
