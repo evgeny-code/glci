@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: glci-app-deployment
+  labels:
+    app: glci-app
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: glci-app
+  template:
+    metadata:
+      labels:
+        app: glci-app
+    spec:
+      containers:
+      - name: glci-app-container
+        image: evg299/glci:latest
+        imagePullPolicy: Never
+        ports:
+        - containerPort: 8080
+      imagePullSecrets:
+       - name: regcred-dh
