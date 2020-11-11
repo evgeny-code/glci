@@ -17,7 +17,8 @@ node {
 
         /* app = docker.build("evg299/glci") */
 
-        sh 'docker build --tag evg299/glci:latest .'
+        sh 'docker build --tag evg299/glci .'
+        sh 'docker tag evg299/glci localhost:32000/evg299/glci'
     }
 
     /*
@@ -31,18 +32,22 @@ node {
     }
     */
 
-    /*
     stage('Push image') {
-         *//* Finally, we'll push the image with two tags:
+        sh 'docker push localhost:32000/evg299/glci'
+
+         /*
+         * Finally, we'll push the image with two tags:
          * First, the incremental build number from Jenkins
          * Second, the 'latest' tag.
          * Pushing multiple tags is cheap, as all the layers are reused. *//*
-        docker.withRegistry('https://registry.hub.docker.com', 'docker-hub-credentials') {
+
+         docker.withRegistry('https://registry.hub.docker.com', 'docker-hub-credentials') {
             app.push("${env.BUILD_NUMBER}")
             app.push("latest")
-        }
+         }
+         */
     }
-    */
+
 
     stage('Update k8s') {
             /* sh "microk8s.kubectl set image deployment/glci-app-deployment glci-app-container=evg299/glci:${env.BUILD_NUMBER}" */
