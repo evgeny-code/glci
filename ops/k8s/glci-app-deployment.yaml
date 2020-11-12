@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: glci-app-container
-        image: evg299/glci:latest
+        image: evg299/glci
         imagePullPolicy: Never
         ports:
         - containerPort: 8080
