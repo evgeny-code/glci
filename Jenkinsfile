@@ -40,8 +40,11 @@ node {
         environment {
              GIT_HASH = sh(script: "git rev-parse --short HEAD", returnStdout: true).trim()
         }
-        sh 'docker push evg299/glci'
         */
+
+        sh 'docker login -u evg299 -p 123qwe123'
+        sh 'docker push evg299/glci'
+
 
          /*
          * Finally, we'll push the image with two tags:
@@ -50,9 +53,9 @@ node {
          * Pushing multiple tags is cheap, as all the layers are reused. *//*
          */
 
-         docker.withRegistry('https://registry.hub.docker.com', 'docker-hub-credentials') {
+         /* docker.withRegistry('https://registry.hub.docker.com', 'docker-hub-credentials') {
             app.push("latest")
-         }
+         } */
     }
 
 
