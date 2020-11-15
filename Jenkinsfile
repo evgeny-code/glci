@@ -36,22 +36,23 @@ node {
     */
 
     stage('Push image') {
+        /*
         environment {
              GIT_HASH = sh(script: "git rev-parse --short HEAD", returnStdout: true).trim()
         }
         sh 'docker push evg299/glci'
+        */
 
          /*
          * Finally, we'll push the image with two tags:
          * First, the incremental build number from Jenkins
          * Second, the 'latest' tag.
          * Pushing multiple tags is cheap, as all the layers are reused. *//*
+         */
 
          docker.withRegistry('https://registry.hub.docker.com', 'docker-hub-credentials') {
-            app.push("${env.BUILD_NUMBER}")
             app.push("latest")
          }
-         */
     }
 
 
