@@ -12,13 +12,16 @@ node {
     }
 
     stage('Build image') {
+        environment {
+            GIT_HASH = sh(script: "git rev-parse --short HEAD", returnStdout: true).trim()
+        }
         /* This builds the actual image; synonymous to
          * docker build on the command line */
 
         /* app = docker.build("evg299/glci") */
 
-        sh 'docker build --tag evg299/glci .'
-        sh 'docker tag evg299/glci localhost:32000/evg299/glci'
+        sh 'docker build . -t evg299/glci'
+        /* sh 'docker tag evg299/glci localhost:32000/evg299/glci' */
     }
 
     /*
@@ -33,7 +36,10 @@ node {
     */
 
     stage('Push image') {
-        sh 'docker push localhost:32000/evg299/glci'
+        environment {
+             GIT_HASH = sh(script: "git rev-parse --short HEAD", returnStdout: true).trim()
+        }
+        sh 'docker push evg299/glci'
 
          /*
          * Finally, we'll push the image with two tags:

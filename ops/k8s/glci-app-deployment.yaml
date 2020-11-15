@@ -17,6 +17,8 @@ spec:
       containers:
       - name: glci-app-container
         image: evg299/glci
-        imagePullPolicy: Never
+        #imagePullPolicy: Never
         ports:
         - containerPort: 8080
+      imagePullSecrets:
+        - name: dockerhub-cred
