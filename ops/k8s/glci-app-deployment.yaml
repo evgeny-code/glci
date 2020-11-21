@@ -15,26 +15,26 @@ spec:
         app: glci-app
     spec:
       containers:
-      - name: glci-app-container
-        image: evg299/glci
-        #imagePullPolicy: Never
-        ports:
-        - containerPort: 8080
+        - name: glci-app-container
+          image: evg299/glci
+          #imagePullPolicy: Never
+          ports:
+            - containerPort: 8080
+          readinessProbe:
+            httpGet:
+              path: /actuator/health
+              port: 8080
+            initialDelaySeconds: 10
+            timeoutSeconds: 2
+            periodSeconds: 3
+            failureThreshold: 1
+          livenessProbe:
+            httpGet:
+              path: /actuator/health
+              port: 8080
+            initialDelaySeconds: 20
+            timeoutSeconds: 2
+            periodSeconds: 8
+            failureThreshold: 1
       imagePullSecrets:
         - name: dockerhub-cred
-      readinessProbe:
-        httpGet:
-          path:/health
-          port: 8080
-        initialDelaySeconds: 10
-        timeoutSeconds: 2
-        periodSeconds: 3
-        failureThreshold: 1
-      livenessProbe:
-          httpGet:
-            path:/health
-            port: 8080
-          initialDelaySeconds: 20
-          timeoutSeconds: 2
-          periodSeconds: 8
-          failureThreshold: 1
